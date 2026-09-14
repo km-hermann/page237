@@ -27,8 +27,8 @@ export default function Footer() {
 
         <div className={styles.column}>
           <div className={styles.heading}>Support</div>
-          <p className={styles.linkText}>help@page237.cm</p>
-          <p className={styles.linkText}>WhatsApp: +237 670 000 000</p>
+          <p className={styles.linkText}>hermannmea777@gmail.com</p>
+          <p className={styles.linkText}>WhatsApp: +237 655 251 122</p>
           <p className={styles.copyText}>&copy; {currentYear} Page237. All rights reserved.</p>
         </div>
       </div>
