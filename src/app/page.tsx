@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { Search, BookOpen, PlusCircle, ArrowRight, Book, HelpCircle, CheckSquare, MessageSquare } from 'lucide-react'
 import { createClient, isSupabaseConfigured } from '@/lib/supabase/server'
+import PendingForm from '@/components/layout/PendingForm/PendingForm'
 import styles from './page.module.css'
 
 async function getRecentListings() {
@@ -47,7 +48,7 @@ export default async function Home() {
         </p>
 
         {/* Hero Search */}
-        <form action={handleSearchSubmit} className={styles.searchForm}>
+        <PendingForm action={handleSearchSubmit} className={styles.searchForm}>
           <Search size={20} className={styles.searchIcon} />
           <input
             type="text"
@@ -58,7 +59,7 @@ export default async function Home() {
           <button type="submit" className={styles.searchSubmit}>
             Search
           </button>
-        </form>
+        </PendingForm>
       </section>
 
       {/* Features section */}

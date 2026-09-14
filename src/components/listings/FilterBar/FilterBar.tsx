@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useTransition } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Search, ChevronDown, X, SlidersHorizontal, ArrowUpDown } from 'lucide-react'
 import styles from './FilterBar.module.css'
 import Input from '@/components/ui/Input/Input'
 import Select from '@/components/ui/Select/Select'
 import Button from '@/components/ui/Button/Button'
+import { startNavigation } from '@/lib/navigation'
 
 interface TaxonomyItem {
   id: string
@@ -26,6 +27,7 @@ interface FilterBarProps {
 export default function FilterBar({ sections, classes, subjects }: FilterBarProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const [isPending, startTransition] = useTransition()
 
   const [activePanel, setActivePanel] = useState<string | null>(null)
   const [isMobileSheetOpen, setIsMobileSheetOpen] = useState(false)
@@ -83,7 +85,10 @@ export default function FilterBar({ sections, classes, subjects }: FilterBarProp
     // Reset pagination if present
     params.delete('page')
 
-    router.push(`/listings?${params.toString()}`)
+    startNavigation()
+    startTransition(() => {
+      router.push(`/listings?${params.toString()}`)
+    })
     setActivePanel(null)
   }
 
@@ -97,7 +102,10 @@ export default function FilterBar({ sections, classes, subjects }: FilterBarProp
   }
 
   const handleClearAll = () => {
-    router.push('/listings')
+    startNavigation()
+    startTransition(() => {
+      router.push('/listings')
+    })
     setIsMobileSheetOpen(false)
   }
 
@@ -215,6 +223,7 @@ export default function FilterBar({ sections, classes, subjects }: FilterBarProp
                 </button>
                 <Button
                   size="small"
+                  loading={isPending}
                   onClick={() => applyFilters({ section: selectedSection, class: null })}
                 >
                   Apply
@@ -259,7 +268,7 @@ export default function FilterBar({ sections, classes, subjects }: FilterBarProp
                 >
                   Clear
                 </button>
-                <Button size="small" onClick={() => applyFilters({ class: selectedClass })}>
+                <Button size="small" loading={isPending} onClick={() => applyFilters({ class: selectedClass })}>
                   Apply
                 </Button>
               </div>
@@ -301,7 +310,7 @@ export default function FilterBar({ sections, classes, subjects }: FilterBarProp
                 >
                   Clear
                 </button>
-                <Button size="small" onClick={() => applyFilters({ subject: selectedSubject })}>
+                <Button size="small" loading={isPending} onClick={() => applyFilters({ subject: selectedSubject })}>
                   Apply
                 </Button>
               </div>
@@ -342,7 +351,7 @@ export default function FilterBar({ sections, classes, subjects }: FilterBarProp
                 >
                   Clear
                 </button>
-                <Button size="small" onClick={() => applyFilters({ condition: selectedCondition })}>
+                <Button size="small" loading={isPending} onClick={() => applyFilters({ condition: selectedCondition })}>
                   Apply
                 </Button>
               </div>
@@ -388,7 +397,7 @@ export default function FilterBar({ sections, classes, subjects }: FilterBarProp
                 >
                   Clear
                 </button>
-                <Button size="small" onClick={() => applyFilters({ minPrice, maxPrice })}>
+                <Button size="small" loading={isPending} onClick={() => applyFilters({ minPrice, maxPrice })}>
                   Apply
                 </Button>
               </div>
@@ -547,6 +556,7 @@ export default function FilterBar({ sections, classes, subjects }: FilterBarProp
                 Clear All
               </Button>
               <Button
+                loading={isPending}
                 onClick={() => {
                   applyFilters({
                     section: selectedSection,

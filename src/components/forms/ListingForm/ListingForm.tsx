@@ -12,6 +12,7 @@ import { ListingSchema, type ListingFormValues } from '@/lib/schemas/listing'
 import Input from '@/components/ui/Input/Input'
 import Select from '@/components/ui/Select/Select'
 import Button from '@/components/ui/Button/Button'
+import { startNavigation } from '@/lib/navigation'
 import styles from './ListingForm.module.css'
 
 interface TaxonomyItem {
@@ -185,6 +186,7 @@ export default function ListingForm({
     if (result.error) {
       setError(result.error)
     } else if (result.success) {
+      startNavigation()
       router.push('/dashboard')
       router.refresh()
     }

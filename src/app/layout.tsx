@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { cookies } from "next/headers";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar/Navbar";
 import Footer from "@/components/layout/Footer/Footer";
+import NavigationProgress from "@/components/layout/NavigationProgress/NavigationProgress";
 
 export const metadata: Metadata = {
   title: "Page237 — Second-Hand Book & Pamphlet Marketplace",
@@ -28,6 +30,9 @@ export default async function RootLayout({
           {children}
         </main>
         <Footer />
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
       </body>
     </html>
   );
