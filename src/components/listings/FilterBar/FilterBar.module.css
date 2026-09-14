@@ -6,6 +6,43 @@
   gap: 1rem;
 }
 
+@media (min-width: 1024px) {
+  .filterBarContainer {
+    position: sticky;
+    top: 85px;
+    height: fit-content;
+    max-height: calc(100vh - 105px);
+    overflow-y: auto;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--border-radius-md);
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px 0 rgba(11, 31, 63, 0.08);
+    margin-bottom: 0;
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto; /* Shifts to the right end of the left area */
+  }
+}
+
+.topControls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 1024px) {
+  .topControls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+}
+
 .desktopBar {
   display: none;
   align-items: center;
@@ -17,6 +54,10 @@
 @media (min-width: 1024px) {
   .desktopBar {
     display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    width: 100%;
   }
 }
 
@@ -41,6 +82,13 @@
   position: relative;
 }
 
+@media (min-width: 1024px) {
+  .searchWrapper {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
 .searchInput {
   width: 100%;
   padding-left: 2.5rem;
@@ -56,6 +104,7 @@
 /* Filter Chip / Dropdown Button */
 .chipContainer {
   position: relative;
+  width: 100%;
 }
 
 .chipButton {
@@ -73,6 +122,15 @@
   color: var(--text-secondary);
   cursor: pointer;
   transition: all var(--transition-fast);
+}
+
+@media (min-width: 1024px) {
+  .chipButton {
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+    border-radius: var(--border-radius-sm);
+  }
 }
 
 .chipButton:hover {
@@ -97,6 +155,19 @@
   z-index: 40;
   animation: fadeIn 0.2s ease-out;
 }
+
+@media (min-width: 1024px) {
+  .dropdownPanel {
+    position: static;
+    width: 100%;
+    margin-top: 0.5rem;
+    box-shadow: none;
+    border-radius: var(--border-radius-sm);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+  }
+}
+
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(4px); }
@@ -154,6 +225,30 @@
   gap: 0.5rem;
   border-top: 1px solid var(--glass-border);
   padding-top: 0.75rem;
+}
+
+.desktopSortWrapper {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .desktopSortWrapper {
+    margin-left: 0;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    border-top: 1px solid var(--glass-border);
+    padding-top: 1rem;
+  }
+
+  .desktopSortWrapper select {
+    width: 100%;
+  }
 }
 
 /* Active Pills row */

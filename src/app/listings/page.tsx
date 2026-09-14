@@ -107,70 +107,76 @@ export default async function ListingsPage({ searchParams }: ListingsPageProps) 
         <p className={styles.pageSubtitle}>Find second-hand textbooks, notebooks, and study pamphlets.</p>
       </div>
 
-      {/* Vinted-style Filter bar */}
-      <FilterBar sections={sections} classes={classes} subjects={subjects} />
+      <div className={styles.layoutWrapper}>
+        <aside className={styles.sidebar}>
+          <FilterBar sections={sections} classes={classes} subjects={subjects} />
+        </aside>
 
-      {/* Empty State */}
-      {availableListings.length === 0 ? (
-        <div className={`${styles.emptyState} glass-panel`}>
-          <HelpCircle size={48} className="text-accent" style={{ opacity: 0.7 }} />
-          <h2 className={styles.emptyTitle}>No Books Found</h2>
-          <p className={styles.emptyDesc}>
-            We couldn't find any books matching your selected filters. Try broadening your criteria or clearing all filters.
-          </p>
-          <Link href="/listings" className="btnPrimary" style={{ marginTop: '0.5rem', display: 'inline-flex', padding: '0.6rem 1.2rem', borderRadius: 'var(--border-radius-sm)', background: 'var(--accent)', color: '#fff', fontWeight: 600 }}>
-            Reset Filters
-          </Link>
-        </div>
-      ) : (
-        /* Listings Grid */
-        <div className={styles.grid}>
-          {availableListings.map((listing) => (
-            <Link 
-              key={listing.id} 
-              href={`/listings/${listing.id}`} 
-              className={`${styles.card} glass-panel glass-panel-hover`}
-            >
-              <div className={styles.imageWrapper}>
-                {listing.image_urls && listing.image_urls.length > 0 ? (
-                  <Image
-                    src={listing.image_urls[0]}
-                    alt={listing.title}
-                    fill
-                    className={styles.image}
-                    sizes="(max-width: 768px) 100vw, 300px"
-                  />
-                ) : (
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-                    <Book size={36} style={{ strokeWidth: 1.5 }} />
-                    <span style={{ fontSize: '0.8rem' }}>No Photo</span>
+        <div className={styles.mainContent}>
+          {/* Empty State */}
+          {availableListings.length === 0 ? (
+            <div className={`${styles.emptyState} glass-panel`}>
+              <HelpCircle size={48} className="text-accent" style={{ opacity: 0.7 }} />
+              <h2 className={styles.emptyTitle}>No Books Found</h2>
+              <p className={styles.emptyDesc}>
+                We couldn't find any books matching your selected filters. Try broadening your criteria or clearing all filters.
+              </p>
+              <Link href="/listings" className="btnPrimary" style={{ marginTop: '0.5rem', display: 'inline-flex', padding: '0.6rem 1.2rem', borderRadius: 'var(--border-radius-sm)', background: 'var(--accent)', color: '#fff', fontWeight: 600 }}>
+                Reset Filters
+              </Link>
+            </div>
+          ) : (
+            /* Listings Grid */
+            <div className={styles.grid}>
+              {availableListings.map((listing) => (
+                <Link 
+                  key={listing.id} 
+                  href={`/listings/${listing.id}`} 
+                  className={`${styles.card} glass-panel glass-panel-hover`}
+                >
+                  <div className={styles.imageWrapper}>
+                    {listing.image_urls && listing.image_urls.length > 0 ? (
+                      <Image
+                        src={listing.image_urls[0]}
+                        alt={listing.title}
+                        fill
+                        className={styles.image}
+                        sizes="(max-width: 768px) 100vw, 300px"
+                      />
+                    ) : (
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                        <Book size={36} style={{ strokeWidth: 1.5 }} />
+                        <span style={{ fontSize: '0.8rem' }}>No Photo</span>
+                      </div>
+                    )}
+
+                    {/* Price Tag */}
+                    <div className={styles.priceBadge}>
+                      {Number(listing.price).toLocaleString()} FCFA
+                    </div>
                   </div>
-                )}
 
-                {/* Price Tag */}
-                <div className={styles.priceBadge}>
-                  {Number(listing.price).toLocaleString()} FCFA
-                </div>
-              </div>
+                  <div className={styles.cardContent}>
+                    <h3 className={styles.listingTitle} title={listing.title}>
+                      {listing.title}
+                    </h3>
+                    {listing.author && (
+                      <p className={styles.listingAuthor}>by {listing.author}</p>
+                    )}
 
-              <div className={styles.cardContent}>
-                <h3 className={styles.listingTitle} title={listing.title}>
-                  {listing.title}
-                </h3>
-                {listing.author && (
-                  <p className={styles.listingAuthor}>by {listing.author}</p>
-                )}
-
-                {/* Tags */}
-                <div className={styles.details}>
-                  <span className={styles.badge}>{(listing.class as any)?.name}</span>
-                  <span className={styles.badge} style={{ textTransform: 'capitalize' }}>{listing.condition}</span>
-                </div>
-              </div>
-            </Link>
-          ))}
+                    {/* Tags */}
+                    <div className={styles.details}>
+                      <span className={styles.badge}>{(listing.class as any)?.name}</span>
+                      <span className={styles.badge} style={{ textTransform: 'capitalize' }}>{listing.condition}</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
+
   )
 }

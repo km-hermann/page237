@@ -59,7 +59,7 @@ html,
 body {
   max-width: 100vw;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
   font-family: var(--font-outfit), Arial, Helvetica, sans-serif;
   color: var(--text-primary);
   /* The vivid brand gradient is now confined to .hero-section only —

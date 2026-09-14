@@ -148,7 +148,7 @@ export default function FilterBar({ sections, classes, subjects }: FilterBarProp
   return (
     <div className={styles.filterBarContainer}>
       {/* Search and Mobile Buttons */}
-      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', width: '100%', flexWrap: 'wrap' }}>
+      <div className={styles.topControls}>
         <form onSubmit={handleSearchSubmit} className={styles.searchWrapper}>
           <Search size={16} className={styles.searchIcon} />
           <input
@@ -406,7 +406,7 @@ export default function FilterBar({ sections, classes, subjects }: FilterBarProp
         </div>
 
         {/* Sort select */}
-        <div style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <div className={styles.desktopSortWrapper}>
           <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Sort By:</span>
           <select
             value={sortBy}
