@@ -7,6 +7,7 @@ import { useForm, type Resolver } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Upload, X, AlertCircle } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { compressImage } from '@/lib/utils/image'
 import { ListingSchema, type ListingFormValues } from '@/lib/schemas/listing'
 import Input from '@/components/ui/Input/Input'
 import Select from '@/components/ui/Select/Select'
@@ -125,21 +126,29 @@ export default function ListingForm({
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
 
-      // Check file size (cap at 2MB to save storage space)
-      if (file.size > 2 * 1024 * 1024) {
-        setError(`File "${file.name}" is too large. Max size is 2MB.`)
+      // Guardrail against accidental non-image or giant files (>30MB)
+      if (file.size > 30 * 1024 * 1024) {
+        setError(`File "${file.name}" is unusually large (>30MB). Please select a standard photo.`)
         continue
       }
 
+      // Automatically compress and resize high-res camera photos before upload
+      let fileToUpload: File = file
+      try {
+        fileToUpload = await compressImage(file, { maxWidth: 1200, maxHeight: 1200, quality: 0.8 })
+      } catch (compressionErr) {
+        console.warn('Image compression fallback to original:', compressionErr)
+      }
+
       // Generate unique file path
-      const fileExt = file.name.split('.').pop()
+      const fileExt = fileToUpload.name.split('.').pop() || 'jpg'
       const fileName = `${Date.now()}_${Math.random().toString(36).substring(2, 9)}.${fileExt}`
       const filePath = `${session.user.id}/${fileName}`
 
       try {
         const { error: uploadError } = await supabase.storage
           .from('listing-images')
-          .upload(filePath, file)
+          .upload(filePath, fileToUpload)
 
         if (uploadError) {
           throw uploadError
@@ -302,7 +311,7 @@ export default function ListingForm({
       {/* Image Upload Dropzone */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
         <label style={{ fontSize: '0.9rem', fontWeight: 600 }}>
-          Photos (Max 5, Cap at 2MB per photo)
+          Photos (Max 5, auto-compressed for fast upload)
         </label>
         <div className={styles.uploadZone} onClick={handleUploadClick}>
           <Upload className={styles.uploadIcon} size={28} />
