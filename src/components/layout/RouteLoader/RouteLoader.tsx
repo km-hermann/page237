@@ -1,3 +1,4 @@
+import { ListingCardSkeleton } from '@/components/listings/ListingCard'
 import styles from './RouteLoader.module.css'
 
 export default function RouteLoader({
@@ -27,13 +28,7 @@ export function ListingsSkeleton() {
       <div className={`${styles.filter} ${styles.shimmer}`} />
       <div className={styles.grid}>
         {Array.from({ length: 8 }, (_, index) => (
-          <div key={index} className={`${styles.card} glass-panel`}>
-            <div className={`${styles.image} ${styles.shimmer}`} />
-            <div className={styles.body}>
-              <div className={`${styles.line} ${styles.shimmer}`} />
-              <div className={`${styles.line} ${styles.lineShort} ${styles.shimmer}`} />
-            </div>
-          </div>
+          <ListingCardSkeleton key={index} />
         ))}
       </div>
     </div>

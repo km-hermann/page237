@@ -1,0 +1,326 @@
+/* ListingCard.module.css */
+
+/* Card Root */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: var(--border-radius-md);
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 20px 0 rgba(11, 31, 63, 0.06);
+  overflow: hidden;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px 0 rgba(0, 212, 255, 0.18), 0 2px 8px 0 rgba(11, 31, 63, 0.08);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--glass-border));
+}
+
+/* Outer link spanning the card */
+.link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
+  border-radius: inherit;
+}
+
+.link:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent);
+}
+
+/* Media/Image Area */
+.imageContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--gradient-start) 8%, var(--surface));
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.image {
+  object-fit: cover;
+  transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+/* Fallback placeholder when no photo exists */
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    color-mix(in srgb, var(--gradient-start) 65%, var(--gradient-end)) 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.placeholderPattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0);
+  background-size: 14px 14px;
+  pointer-events: none;
+}
+
+.placeholderIconWrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--hero-accent-highlight);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 300ms ease;
+}
+
+.card:hover .placeholderIconWrap {
+  transform: scale(1.08);
+}
+
+.placeholderBrand {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--hero-text-secondary);
+  opacity: 0.9;
+}
+
+/* Condition Badges */
+.badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-transform: capitalize;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.badgeNew {
+  background: color-mix(in srgb, var(--warning) 22%, var(--glass-bg));
+  color: var(--warning);
+  border: 1px solid color-mix(in srgb, var(--warning) 45%, transparent);
+}
+
+.badgeGood {
+  background: color-mix(in srgb, var(--accent) 22%, var(--glass-bg));
+  color: var(--accent);
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.badgeFair {
+  background: color-mix(in srgb, var(--text-secondary) 20%, var(--glass-bg));
+  color: var(--text-secondary);
+  border: 1px solid color-mix(in srgb, var(--text-secondary) 38%, transparent);
+}
+
+.badgeWorn {
+  background: color-mix(in srgb, var(--text-secondary) 20%, var(--glass-bg));
+  color: var(--text-secondary);
+  border: 1px solid color-mix(in srgb, var(--text-secondary) 38%, transparent);
+}
+
+/* Card Content Body */
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 0.8rem;
+  min-height: 110px;
+}
+
+@media (min-width: 640px) {
+  .content {
+    padding: 1rem;
+    min-height: 130px;
+  }
+}
+
+.title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+  hyphens: auto;
+  margin-bottom: 0.25rem;
+  transition: color var(--transition-fast);
+}
+
+.card:hover .title {
+  color: var(--accent);
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: 0.98rem;
+  }
+}
+
+.author {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .author {
+    font-size: 0.82rem;
+  }
+}
+
+.meta {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  opacity: 0.88;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.45rem;
+}
+
+@media (min-width: 640px) {
+  .meta {
+    font-size: 0.76rem;
+  }
+}
+
+/* Footer / Price */
+.footer {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px solid color-mix(in srgb, var(--glass-border) 40%, transparent);
+}
+
+.price {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.01em;
+}
+
+@media (min-width: 640px) {
+  .price {
+    font-size: 0.95rem;
+  }
+}
+
+/* Skeleton Loading Card */
+.skeletonCard {
+  pointer-events: none;
+}
+
+.skeletonImage {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+
+.skeletonLine {
+  border-radius: 4px;
+}
+
+.skeletonTitle1 {
+  width: 85%;
+  height: 0.85rem;
+  margin-bottom: 0.35rem;
+}
+
+.skeletonTitle2 {
+  width: 55%;
+  height: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeletonMeta {
+  width: 45%;
+  height: 0.7rem;
+  margin-bottom: 0.5rem;
+}
+
+.skeletonPrice {
+  width: 40%;
+  height: 0.95rem;
+  margin-left: auto;
+  margin-top: auto;
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--text-secondary) 12%, transparent) 0%,
+    color-mix(in srgb, var(--accent) 18%, transparent) 50%,
+    color-mix(in srgb, var(--text-secondary) 12%, transparent) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+/* Accessibility: Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .image,
+  .placeholderIconWrap,
+  .shimmer {
+    transition: none !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
