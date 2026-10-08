@@ -141,27 +141,27 @@
 }
 
 .badgeNew {
-  background: color-mix(in srgb, var(--warning) 22%, var(--glass-bg));
-  color: var(--warning);
-  border: 1px solid color-mix(in srgb, var(--warning) 45%, transparent);
+  background: color-mix(in srgb, var(--success) 22%, var(--glass-bg));
+  color: var(--success);
+  border: 1px solid color-mix(in srgb, var(--success) 45%, transparent);
 }
 
 .badgeGood {
-  background: color-mix(in srgb, var(--accent) 22%, var(--glass-bg));
+  background: color-mix(in srgb, var(--text-secondary) 22%, var(--glass-bg));
   color: var(--accent);
   border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
 .badgeFair {
-  background: color-mix(in srgb, var(--text-secondary) 20%, var(--glass-bg));
-  color: var(--text-secondary);
-  border: 1px solid color-mix(in srgb, var(--text-secondary) 38%, transparent);
+  background: color-mix(in srgb, var(--warning) 20%, var(--glass-bg));
+  color: var(--warning);
+  border: 1px solid color-mix(in srgb, var(--warning) 38%, transparent);
 }
 
 .badgeWorn {
-  background: color-mix(in srgb, var(--text-secondary) 20%, var(--glass-bg));
-  color: var(--text-secondary);
-  border: 1px solid color-mix(in srgb, var(--text-secondary) 38%, transparent);
+  background: color-mix(in srgb, var(--error) 20%, var(--glass-bg));
+  color: var(--error);
+  border: 1px solid color-mix(in srgb, var(--error) 38%, transparent);
 }
 
 /* Card Content Body */
@@ -202,22 +202,6 @@
 @media (min-width: 640px) {
   .title {
     font-size: 0.96rem;
-  }
-}
-
-.author {
-  font-size: 0.76rem;
-  color: var(--text-secondary);
-  line-height: 1.3;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 0.25rem;
-}
-
-@media (min-width: 640px) {
-  .author {
-    font-size: 0.80rem;
   }
 }
 

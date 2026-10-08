@@ -58,14 +58,13 @@ export default function ListingCard({ listing, priority = false }: ListingCardPr
   )
   const metaText = metaParts.length > 0 ? metaParts.join(' • ') : null
   const displayTitle = formatDisplayText(listing.title)
-  const displayAuthor = listing.author?.trim() ? formatDisplayText(listing.author) : null
 
   return (
     <article className={styles.card}>
       <Link
         href={`/listings/${listing.id}`}
         className={styles.link}
-        aria-label={`${displayTitle}${displayAuthor ? ` by ${displayAuthor}` : ''} - ${formattedPrice}`}
+        aria-label={`${displayTitle} - ${formattedPrice}`}
       >
         {/* Media Box */}
         <div className={styles.imageContainer}>
@@ -100,12 +99,6 @@ export default function ListingCard({ listing, priority = false }: ListingCardPr
           <h3 className={styles.title} title={displayTitle}>
             {displayTitle}
           </h3>
-
-          {displayAuthor && (
-            <p className={styles.author} title={`by ${displayAuthor}`}>
-              by {displayAuthor}
-            </p>
-          )}
 
           {metaText && (
             <p className={styles.meta} title={metaText}>
