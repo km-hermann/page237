@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, MessageSquare, AlertTriangle, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, MessageSquare, AlertTriangle } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import ImageGallery from '@/components/listings/ImageGallery/ImageGallery'
+import { formatDisplayText } from '@/lib/utils/text'
 import styles from './page.module.css'
 
 interface ListingDetailPageProps {
@@ -25,9 +26,11 @@ export async function generateMetadata({ params }: ListingDetailPageProps) {
     }
   }
 
+  const title = formatDisplayText(listing.title)
+
   return {
-    title: `${listing.title} — Page237`,
-    description: listing.description || `Buy second-hand book "${listing.title}" on Page237.`,
+    title: `${title} — Page237`,
+    description: listing.description || `Buy second-hand book "${title}" on Page237.`,
   }
 }
 
@@ -51,9 +54,9 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
     notFound()
   }
 
-  const seller = listing.seller as any
-  const section = listing.section as any
-  const classItem = listing.class as any
+  const seller = listing.seller as { full_name?: string | null; role?: string | null; created_at?: string | null } | null
+  const section = listing.section as { name?: string | null } | null
+  const classItem = listing.class as { name?: string | null } | null
 
   const { data: subjectData } = await supabase
     .from('subjects')
@@ -61,8 +64,8 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
     .eq('id', listing.subject_id)
     .single()
 
-  const subject = subjectData as any
-  const isSubjectActive = (value: any) =>
+  const subject = subjectData as { name?: string | null; active?: boolean | string } | null
+  const isSubjectActive = (value: unknown) =>
     value === true || value === 'true' || value === 't' || value === '1'
   const showSubject = Boolean(subject?.name) && isSubjectActive(subject?.active)
 
@@ -73,7 +76,13 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
       })
     : ''
 
-  const initialLetter = seller?.full_name ? seller.full_name.charAt(0).toUpperCase() : 'S'
+  const rawTitle = listing.title || ''
+  const displayTitle = formatDisplayText(rawTitle)
+  const displayAuthor = listing.author ? formatDisplayText(listing.author) : null
+  const sellerFullName = seller?.full_name ? formatDisplayText(seller.full_name) : 'Anonymous Seller'
+  const sellerRole = seller?.role ? formatDisplayText(seller.role) : 'Seller'
+  const initialLetter = sellerFullName.charAt(0).toUpperCase() || 'S'
+  const formattedPrice = new Intl.NumberFormat('fr-CM').format(Number(listing.price))
 
   return (
     <div className={`${styles.container} container`}>
@@ -84,16 +93,24 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
 
       <div className={styles.layout}>
         {/* Left: Images */}
-        <ImageGallery imageUrls={listing.image_urls} title={listing.title} />
+        <ImageGallery imageUrls={listing.image_urls} title={displayTitle} />
 
         {/* Right: Info */}
         <div className={`${styles.infoCard} glass-panel`}>
-          <h1 className={styles.title}>{listing.title}</h1>
-          {listing.author && <p className={styles.author}>by {listing.author}</p>}
+          <h1 className={styles.title}>{displayTitle}</h1>
+          {displayAuthor && (
+            <p className={styles.author}>
+              <span className={styles.byPrefix}>by </span>
+              {displayAuthor}
+            </p>
+          )}
 
           <div className={styles.priceWrapper}>
             <span className={styles.priceLabel}>Price</span>
-            <span className={styles.price}>{Number(listing.price).toLocaleString()} FCFA</span>
+            <div className={styles.price}>
+              {formattedPrice}
+              <span className={styles.priceCurrency}>FCFA</span>
+            </div>
           </div>
 
           <h3 className={styles.sectionHeader}>Book Details</h3>
@@ -132,18 +149,20 @@ export default async function ListingDetailPage({ params }: ListingDetailPagePro
           <div className={styles.sellerCard}>
             <div className={styles.avatar}>{initialLetter}</div>
             <div className={styles.sellerInfo}>
-              <span className={styles.sellerName}>{seller?.full_name || 'Anonymous Seller'}</span>
-              <span className={styles.sellerMeta}>Member since {memberSince}</span>
-              <span className={styles.sellerMeta} style={{ textTransform: 'capitalize', color: 'var(--accent)', fontWeight: 600 }}>
-                {seller?.role}
-              </span>
+              <span className={styles.sellerName}>{sellerFullName}</span>
+              {memberSince && <span className={styles.sellerMeta}>Member since {memberSince}</span>}
+              <span className={styles.roleBadge}>{sellerRole}</span>
             </div>
           </div>
 
           {/* Action buttons */}
           <div className={styles.actions}>
             {listing.status === 'sold' ? (
-              <button className={styles.contactBtn} style={{ background: 'var(--text-secondary)', cursor: 'not-allowed', boxShadow: 'none' }} disabled>
+              <button
+                className={styles.contactBtn}
+                style={{ background: 'var(--text-secondary)', cursor: 'not-allowed', boxShadow: 'none' }}
+                disabled
+              >
                 Book Already Sold
               </button>
             ) : (

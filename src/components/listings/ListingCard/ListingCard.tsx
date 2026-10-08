@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Book } from 'lucide-react'
+import { formatDisplayText } from '@/lib/utils/text'
 import styles from './ListingCard.module.css'
 
 export interface ListingCardItem {
@@ -56,21 +57,22 @@ export default function ListingCard({ listing, priority = false }: ListingCardPr
     (item): item is string => typeof item === 'string' && item.trim().length > 0
   )
   const metaText = metaParts.length > 0 ? metaParts.join(' • ') : null
-  const authorText = listing.author?.trim() || null
+  const displayTitle = formatDisplayText(listing.title)
+  const displayAuthor = listing.author?.trim() ? formatDisplayText(listing.author) : null
 
   return (
     <article className={styles.card}>
       <Link
         href={`/listings/${listing.id}`}
         className={styles.link}
-        aria-label={`${listing.title}${authorText ? ` by ${authorText}` : ''} - ${formattedPrice}`}
+        aria-label={`${displayTitle}${displayAuthor ? ` by ${displayAuthor}` : ''} - ${formattedPrice}`}
       >
         {/* Media Box */}
         <div className={styles.imageContainer}>
           {imageUrl ? (
             <Image
               src={imageUrl}
-              alt={listing.title}
+              alt={displayTitle}
               fill
               className={styles.image}
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 280px"
@@ -95,13 +97,13 @@ export default function ListingCard({ listing, priority = false }: ListingCardPr
 
         {/* Content Box */}
         <div className={styles.content}>
-          <h3 className={styles.title} title={listing.title}>
-            {listing.title}
+          <h3 className={styles.title} title={displayTitle}>
+            {displayTitle}
           </h3>
 
-          {authorText && (
-            <p className={styles.author} title={`by ${authorText}`}>
-              by {authorText}
+          {displayAuthor && (
+            <p className={styles.author} title={`by ${displayAuthor}`}>
+              by {displayAuthor}
             </p>
           )}
 
