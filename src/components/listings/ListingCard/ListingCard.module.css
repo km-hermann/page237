@@ -242,7 +242,7 @@
 .price {
   font-size: 0.85rem;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--success);
   letter-spacing: -0.01em;
 }
 
