@@ -86,8 +86,8 @@
 }
 
 .placeholderIconWrap {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(8px);
@@ -106,7 +106,7 @@
 }
 
 .placeholderBrand {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -117,13 +117,13 @@
 /* Condition Badges */
 .badge {
   position: absolute;
-  top: 8px;
-  left: 8px;
+  top: 9px;
+  left: 9px;
   z-index: 2;
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  padding: 0.2rem 0.5rem;
+  padding: 0.22rem 0.58rem;
   border-radius: 6px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -131,10 +131,19 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
 
+@media (min-width: 640px) {
+  .badge {
+    top: 10px;
+    left: 10px;
+    font-size: 0.76rem;
+    padding: 0.26rem 0.65rem;
+  }
+}
+
 .badgeNew {
-  background: color-mix(in srgb, var(--success) 22%, var(--glass-bg));
-  color: var(--success);
-  border: 1px solid color-mix(in srgb, var(--success) 45%, transparent);
+  background: color-mix(in srgb, var(--warning) 22%, var(--glass-bg));
+  color: var(--warning);
+  border: 1px solid color-mix(in srgb, var(--warning) 45%, transparent);
 }
 
 .badgeGood {
@@ -144,9 +153,9 @@
 }
 
 .badgeFair {
-  background: color-mix(in srgb, var(--warning) 20%, var(--glass-bg));
-  color: var(--warning);
-  border: 1px solid color-mix(in srgb, var(--warning) 38%, transparent);
+  background: color-mix(in srgb, var(--text-secondary) 20%, var(--glass-bg));
+  color: var(--text-secondary);
+  border: 1px solid color-mix(in srgb, var(--text-secondary) 38%, transparent);
 }
 
 .badgeWorn {
@@ -160,19 +169,19 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: 0.8rem;
+  padding: 0.85rem;
   min-height: 110px;
 }
 
 @media (min-width: 640px) {
   .content {
-    padding: 1rem;
-    min-height: 130px;
+    padding: 0.95rem;
+    min-height: 120px;
   }
 }
 
 .title {
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 600;
   line-height: 1.35;
   color: var(--text-primary);
@@ -192,12 +201,12 @@
 
 @media (min-width: 640px) {
   .title {
-    font-size: 0.98rem;
+    font-size: 0.96rem;
   }
 }
 
 .author {
-  font-size: 0.75rem;
+  font-size: 0.76rem;
   color: var(--text-secondary);
   line-height: 1.3;
   white-space: nowrap;
@@ -208,12 +217,12 @@
 
 @media (min-width: 640px) {
   .author {
-    font-size: 0.82rem;
+    font-size: 0.80rem;
   }
 }
 
 .meta {
-  font-size: 0.7rem;
+  font-size: 0.70rem;
   color: var(--text-secondary);
   opacity: 0.88;
   line-height: 1.3;
@@ -225,7 +234,7 @@
 
 @media (min-width: 640px) {
   .meta {
-    font-size: 0.76rem;
+    font-size: 0.74rem;
   }
 }
 
@@ -240,15 +249,15 @@
 }
 
 .price {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   font-weight: 700;
-  color: var(--success);
+  color: var(--accent);
   letter-spacing: -0.01em;
 }
 
 @media (min-width: 640px) {
   .price {
-    font-size: 0.95rem;
+    font-size: 0.96rem;
   }
 }
 

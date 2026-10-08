@@ -94,15 +94,15 @@
 
 /* Each item */
 .slide {
-  flex: 0 0 220px;
-  min-width: 220px;
+  flex: 0 0 240px;
+  min-width: 240px;
   scroll-snap-align: start;
 }
 
 @media (min-width: 640px) {
   .slide {
-    flex: 0 0 250px;
-    min-width: 250px;
+    flex: 0 0 280px;
+    min-width: 280px;
   }
 }
 
