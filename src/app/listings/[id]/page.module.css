@@ -8,8 +8,8 @@
 
   /* Typography scale custom properties */
   --fs-title: clamp(1.375rem, 5vw, 1.875rem);
-  --fs-price: clamp(1.5rem, 4vw, 1.75rem);
-  --fs-price-currency: 0.58em;
+  --fs-price: clamp(2rem, 4vw, 2.5rem);
+  --fs-price-currency: 1.15rem;
   --fs-author: 0.9375rem;
   --fs-heading: 0.75rem;
   --fs-body: clamp(0.9375rem, 2vw, 1rem);
@@ -199,7 +199,7 @@
 
 .priceCurrency {
   font-size: var(--fs-price-currency);
-  font-weight: 500;
+  font-weight: 600;
   margin-left: 0.35rem;
   color: var(--success);
   opacity: 0.95;
